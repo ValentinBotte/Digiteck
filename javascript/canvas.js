@@ -25,14 +25,16 @@
       .add("images/radar.png")
       .add("images/navigation.png")
       .add("images/boat_valid.png")
+      .add("images/navigation0.png")
+      .add("images/navigation1.png")
+      .add("images/navigation2.png")
+
       .load(setup);
 
   document.body.appendChild(radar.view);  // On lance
 
 
 
-var container = new PIXI.Container();
-radar.stage.addChild(container);
 
 var bounds = new PIXI.RoundedRectangle(
     725,
@@ -45,7 +47,8 @@ var bounds = new PIXI.RoundedRectangle(
 
 var count = 0;
 var bateaux = [];
-
+var tempsSeconde = 0;
+var tempsTemp = 0;
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -75,34 +78,12 @@ function getRandomArbitrary(min, max) {
 
       radar.stage.addChild(radarI);
 
-      for (var i = 0; i < 5; i++)
-      {
-          var bateau =  PIXI.Sprite.fromImage('images/navigation.png');
-          bateau.anchor.set(0.5);
-          //bateau.rotation = Math.PI;
-          radar.stage.addChild(bateau);
-
-          bateau.direction = getRandomArbitrary(Math.PI, (11*Math.PI)/6 );
-          bateau.speed = 0.05;
-          bateau.turnSpeed = 0.05;
-
-          bateau.x = Math.random() * bounds.width;
-          bateau.y = Math.random() * bounds.height;
-
-          bateau.scale.set(1 + Math.random() * 0.3);
-          bateau.original = new PIXI.Point();
-      	  bateau.original.copy(bateau.scale);
-
-          bateau.gravite = Math.round(getRandomArbitrary(0, 2));
-          bateaux.push(bateau);
-
-      }
       /*
 
             BATEAU DE BASE ROUGE
       */
 
-      let boat = new PIXI.Sprite(PIXI.loader.resources["images/navigation.png"].texture);
+      let boat = new PIXI.Sprite(PIXI.loader.resources["images/navigation1.png"].texture);
       boat.position.set(420, 310);
       boat.rotation = 0.2;
       boat.alpha = 0;
@@ -124,14 +105,21 @@ function getRandomArbitrary(min, max) {
 
   function animate() {
 
+    tempsTemp++;
+    if(tempsTemp > 60){
+      tempsSeconde++;
+      tempsTemp = 0;
+      temps();
+    }
+
     count += 0.05;
 
-        for (var i = 0; i < bateaux.length; i++) {
+       for (var i = 0; i < bateaux.length; i++) {
             var bateau = bateaux[i];
 
             bateau.direction += bateau.turnSpeed * 0.01;
-            bateau.x += Math.sin(bateau.direction) * bateau.speed;
-            bateau.y += Math.cos(bateau.direction) * bateau.speed;
+            bateau.position.x += Math.sin(bateau.direction) * bateau.speed;
+            bateau.position.y += Math.cos(bateau.direction) * bateau.speed;
 
             bateau.rotation = -bateau.direction - Math.PI/2;
 
@@ -155,3 +143,61 @@ function getRandomArbitrary(min, max) {
 
 
   }
+
+
+
+
+  /*
+
+      METHODE GESTION DE LA LIGNE DE tempsSeconde
+
+      3s - Bateau (0)
+      5s - Bateau (0)
+      10s - Bateau (1)
+      15s - Bateau (0)
+      20s - Bateau (2)
+
+      tempsSeconde retourne les secondes
+
+*/
+
+function temps(){
+
+      switch (tempsSeconde) {
+        case 3:
+          var gravite = 0;
+        break;
+        case 5:
+          var gravite = 0;
+        break;
+        case 10:
+          var gravite = 1;
+        break;
+        default:
+      }
+
+      if (typeof gravite !== 'undefined') {
+
+
+      var bateau =  PIXI.Sprite.fromImage('images/navigation' + gravite + '.png');
+      bateau.anchor.set(0.5);
+      //bateau.rotation = Math.PI;
+      radar.stage.addChild(bateau);
+
+      bateau.direction = getRandomArbitrary(Math.PI, (11*Math.PI)/6 );
+      bateau.speed = 0.03;
+      bateau.turnSpeed = 0.03;
+
+      bateau.position.x = Math.random() * bounds.width + 725;
+      bateau.position.y = Math.random() * bounds.height + 580;
+
+      bateau.scale.set(1 + Math.random() * 0.3);
+      bateau.original = new PIXI.Point();
+      bateau.original.copy(bateau.scale);
+
+      bateau.gravite = gravite;
+
+      bateaux.push(bateau);
+
+}
+}
