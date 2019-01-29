@@ -23,7 +23,7 @@
   PIXI.loader
       .add("images/fond.png")
       .add("images/radar.png")
-      .add("images/boat.png")
+      .add("images/navigation.png")
       .add("images/boat_valid.png")
       .load(setup);
 
@@ -35,8 +35,8 @@ var container = new PIXI.Container();
 radar.stage.addChild(container);
 
 var bounds = new PIXI.RoundedRectangle(
-    470,
-    480,
+    725,
+    580,
     300,
     200,
     100
@@ -69,7 +69,7 @@ function getRandomArbitrary(min, max) {
 
       // RADAR
       let radarI = new PIXI.Sprite(PIXI.loader.resources["images/radar.png"].texture);
-      radarI.position.set(400, 300);
+      radarI.position.set(650, 400);
       radarI.width = 479;
       radarI.height = 470;
 
@@ -77,9 +77,9 @@ function getRandomArbitrary(min, max) {
 
       for (var i = 0; i < 5; i++)
       {
-          var bateau =  PIXI.Sprite.fromImage('images/boat.png');
+          var bateau =  PIXI.Sprite.fromImage('images/navigation.png');
           bateau.anchor.set(0.5);
-          //bateau.rotation = getRandomArbitrary(Math.PI, (11*Math.PI)/6 );
+          //bateau.rotation = Math.PI;
           radar.stage.addChild(bateau);
 
           bateau.direction = getRandomArbitrary(Math.PI, (11*Math.PI)/6 );
@@ -102,7 +102,7 @@ function getRandomArbitrary(min, max) {
             BATEAU DE BASE ROUGE
       */
 
-      let boat = new PIXI.Sprite(PIXI.loader.resources["images/boat.png"].texture);
+      let boat = new PIXI.Sprite(PIXI.loader.resources["images/navigation.png"].texture);
       boat.position.set(420, 310);
       boat.rotation = 0.2;
       boat.alpha = 0;
