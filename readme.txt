@@ -1,15 +1,17 @@
 Digiteck
 Projet reaco pour Naval Group
 
-DÈveloppÈ :
+D√©velopp√© :
 
-DÈplacement des bateaux (5)
-Gestion bandeau notification avec prioritÈ
-Zone radar de visualisation des bateaux
-Reste ‡ dÈvelopper :
+- D√©placement des bateaux (5)
+- Gestion bandeau notification avec priorit√©
+- Zone radar de visualisation des bateaux
+- Gestion d'une ligne de temporalit√© (en seconde)
+- Correction des icones fournies
 
-Gestion des pop-up
-Gestion d'un fil d'action (en seconde)
-Affichage des bonnes icones
-GÈrer une application sur un bracelet pour envoyer des vibrations
+
+Reste √† d√©velopper :
+
+- Gestion des pop-up
+- G√©rer une application sur un bracelet pour envoyer des vibrations
 
